@@ -1,28 +1,35 @@
 <template>
   <div>
-    <div v-for="(item, index) in ask" :key="index">{{ item.title }}</div>
+    <p v-for="(item, index) in fetchedAsk" :key="index">
+      <a :href="item.url">
+        {{ item.title }}
+      </a>
+      <small>{{ item.time_ago }} by {{ item.user }}</small>
+    </p>
   </div>
 </template>
 
 <script>
-import { fetchAskList } from '../api/index.js';
+import { mapGetters } from 'vuex';
 
 export default {
-  data() {
-    return {
-      ask: []
-    }
+  computed: {
+    ...mapGetters([
+    'fetchedAsk'
+    ]),
+    // #2
+    // ...mapState({ 
+    //   ask: state => state.ask
+    // })
+
+    // # 1
+    // ask() {
+    //   return this.$store.state.ask;
+    // }
   },
   // 컴포넌트가 생성되자마자 실행되는 로직(life cycle hook)
   created() {
-    var vm = this;
-    fetchAskList()
-      .then(function(response) {
-        vm.ask = response.data;
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    this.$store.dispatch('FETCH_ASK');
   },
   
 }
