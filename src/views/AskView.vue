@@ -1,37 +1,17 @@
 <template>
   <div>
-    <p v-for="(item, index) in fetchedAsk" :key="index">
-      <router-link v-bind:to="`item/${item.id}`">
-        {{ item.title }}
-      </router-link>
-      <small>{{ item.time_ago }} by {{ item.user }}</small>
-    </p>
+    <List-Item></List-Item>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import ListItem from '../components/ListItem.vue';
+// import { mapGetters } from 'vuex';
 
 export default {
-  computed: {
-    ...mapGetters([
-    'fetchedAsk'
-    ]),
-    // #2
-    // ...mapState({ 
-    //   ask: state => state.ask
-    // })
-
-    // # 1
-    // ask() {
-    //   return this.$store.state.ask;
-    // }
-  },
-  // 컴포넌트가 생성되자마자 실행되는 로직(life cycle hook)
-  created() {
-    this.$store.dispatch('FETCH_ASK');
-  },
-  
+  components: {
+    ListItem,
+  }
 }
 </script>
 
