@@ -40,31 +40,9 @@
 
 <script>
 export default {
-  created() {
-    // this.$store.dispatch('FETCH_NEWS');
-    // console.log(this.$route.path === '/news');
-    const name = this.$route.name;
-    if (name === 'news') {
-      this.$store.dispatch('FETCH_NEWS');
-    } else if (name === 'ask') {
-      this.$store.dispatch('FETCH_ASK');
-    } else if (name === 'jobs') {
-      this.$store.dispatch('FETCH_JOBS');
-    }
-  },
   computed: {
     listItems() {
-      let result = '';
-      const name = this.$route.name;
-
-      if (name === 'news') {
-        result = this.$store.state.news;
-      } else if (name === 'ask') {
-        result = this.$store.state.ask;
-      } else if (name === 'jobs') {
-        result = this.$store.state.jobs;
-      }
-      return result;
+      return this.$store.state.list;
     }
   }
 }
